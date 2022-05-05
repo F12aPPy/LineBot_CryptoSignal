@@ -1,18 +1,51 @@
 from flask import Flask, request, abort
 import requests
 import json
-from Config import *
+from .Config import *
 from uncleengineer import thaistock
+import ccxt
+
+
 app = Flask(__name__)
 
+binance = ccxt.binance({
+    'apiKey': api_key, 'secret': binance_secret_key, 'enableRateLimit': True,
+})
 
 def GET_BTC_PRICE():
-    data = requests.get('https://bx.in.th/api/')
-    BTC_PRICE = data.text.split('BTC')[1].split('last_price":')[1].split(',"volume_24hours')[0]
+    data = binance.fetch_tickers('BTC/USDT')['BTC/USDT']['ask']
+    BTC_PRICE = data
     return BTC_PRICE
 
+def GET_DOGE_PRICE():
+    data = binance.fetch_tickers('DOGE/USDT')['DOGE/USDT']['ask']
+    DOGE_PRICE = data
+    return DOGE_PRICE
 
+def GET_ETH_PRICE():
+    data = binance.fetch_tickers('ETH/USDT')['ETH/USDT']['ask']
+    ETH_PRICE = data
+    return ETH_PRICE
 
+def GET_BNB_PRICE():
+    data = binance.fetch_tickers('BNB/USDT')['BNB/USDT']['ask']
+    BNB_PRICE = data
+    return BNB_PRICE
+
+def GET_XRP_PRICE():
+    data = binance.fetch_tickers('XRP/USDT')['XRP/USDT']['ask']
+    XRP_PRICE = data
+    return XRP_PRICE
+
+def GET_LUNA_PRICE():
+    data = binance.fetch_tickers('LUNA/USDT')['LUNA/USDT']['ask']
+    LUNA_PRICE = data
+    return LUNA_PRICE
+
+def GET_SOL_PRICE():
+    data = binance.fetch_tickers('SOL/USDT')['SOL/USDT']['ask']
+    SOL_PRICE = data
+    return SOL_PRICE
 
 @app.route('/webhook', methods=['POST','GET'])
 def webhook():
@@ -29,7 +62,25 @@ def webhook():
             ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
         
         elif "btc" in message :
-            Reply_messasge = 'ราคา BITCOIN ขณะนี้ : {}'.format(GET_BTC_PRICE())
+            Reply_messasge = 'ราคา BITCOIN ขณะนี้ : {} usdt'.format(GET_BTC_PRICE())
+            ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
+        elif "doge" in message :
+            Reply_messasge = 'ราคา DOGECOIN ขณะนี้ : {} usdt'.format(GET_DOGE_PRICE())
+            ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
+        elif "eth" in message :
+            Reply_messasge = 'ราคา ETH ขณะนี้ : {} usdt'.format(GET_ETH_PRICE())
+            ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
+        elif "bnb" in message :
+            Reply_messasge = 'ราคา BNB ขณะนี้ : {} usdt'.format(GET_BNB_PRICE())
+            ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
+        elif "xrp" in message :
+            Reply_messasge = 'ราคา XRP ขณะนี้ : {} usdt'.format(GET_XRP_PRICE())
+            ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
+        elif "luna" in message :
+            Reply_messasge = 'ราคา LUNA ขณะนี้ : {} usdt'.format(GET_LUNA_PRICE())
+            ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
+        elif "sol" in message :
+            Reply_messasge = 'ราคา SOL ขณะนี้ : {} usdt'.format(GET_SOL_PRICE())
             ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
 
 
