@@ -1,6 +1,6 @@
 from flask import Flask, request, abort
 import requests
-import json
+import jsons
 from .Config import *
 from uncleengineer import thaistock
 import ccxt
@@ -114,6 +114,6 @@ def ReplyMessage(Reply_token, TextMessage, Line_Acees_Token):
         }]
     }
 
-    data = json.dumps(data) ## dump dict >> Json Object
+    data = jsons.dumps(data) ## dump dict >> Json Object
     r = requests.post(LINE_API, headers=headers, data=data) 
     return 200

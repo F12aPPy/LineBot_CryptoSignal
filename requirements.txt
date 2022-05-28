@@ -1,0 +1,5 @@
+FLASK
+ccxt
+requests
+uncleengineer
+jsons
