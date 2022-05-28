@@ -7,3 +7,5 @@ basic_id = '@810alcrc'
 api_key = 'PcrhmJI7d8rNemlUQlk1iz9vRmp21AHDo1EHFUAW6MSGQfSqYjyuSVtA0wjgoCgJ'
 
 binance_secret_key = '2nznlsHQToNiX2YWZcKW3Qi41rALGSoJLWkBbypi8vrYvvodkRM7b5WzDEMjlWEK'
+
+test = ''
