@@ -4,7 +4,7 @@ import jsons
 from .Config import *
 from uncleengineer import thaistock
 import ccxt
-
+from predict_price import predict_price
 
 app = Flask(__name__)
 
@@ -82,6 +82,9 @@ def webhook():
         elif "sol" in message :
             Reply_messasge = 'ราคา SOL ขณะนี้ : {} usdt'.format(GET_SOL_PRICE())
             ReplyMessage(Reply_token,Reply_messasge,Channel_access_token)
+        elif "predict_price_btc" in message :
+            Reply_messasge = 'ราคาที่คาดว่าจะเหรียญ BTC จะเป็นไปได้ : {} usdt'.format(predict_price('btc'))
+            ReplyMessage(Reply_token, Reply_messasge,Channel_access_token)
 
 
         return request.json, 200
